@@ -33,6 +33,14 @@ class ZoomHandler extends React.Component {
             x: 0,
             y: 0,
         };
+        const levels = props.zoomLevels ? props.zoomLevels : 2;
+        this.doubleTapEnabled = props.zoomLevels > 0;
+        this.zoomLevels = [];
+        this.minZoom = props.minZoom ? (props.minZoom < 1 ? 1 : props.minZoom) : 1;
+        this.maxZoom = props.maxZoom ? props.maxZoom : 3;
+        for (let i = 0; i <= levels; i++) {
+            this.zoomLevels.push(this.minZoom + i * ((this.maxZoom - this.minZoom) / levels));
+        }
     }
 
     componentWillReceiveProps() {
@@ -116,9 +124,15 @@ class ZoomHandler extends React.Component {
             Math.pow(pageX - this.lastTouchInfo.x, 2) + Math.pow(pageY - this.lastTouchInfo.y, 2),
         );
 
-        if (delta < DOUBLE_PRESS_DELAY && lastTouchDistance < DOUBLE_PRESS_DISTANCE) {
+        if (delta < DOUBLE_PRESS_DELAY && lastTouchDistance < DOUBLE_PRESS_DISTANCE && this.doubleTapEnabled) {
             const scale = getZoom(info);
-            const requiredScale = scale < 2 ? 2 : scale < 3 ? 3 : 1;
+            let requiredScale = this.zoomLevels[0];
+            for (let el of this.zoomLevels) {
+                if (scale < el) {
+                    requiredScale = el;
+                    break;
+                }
+            }
 
             if (this.savedDragstyles.left === undefined) {
                 this.savedDragstyles = this.zoomPanel.dragStyles;
@@ -220,11 +234,11 @@ class ZoomHandler extends React.Component {
                 top: 0,
                 left: 0,
             };
-            this.setZoom(1);
+            this.setZoom(this.minZoom);
             this.zoomPanel.updateStyles();
             this.setDefault = false;
         } else {
-            setTimeout(this.onOrientationChange, 50);
+            setTimeout(this.onOrientationChange(), 50);
         }
     }
 
@@ -291,13 +305,14 @@ class ZoomHandler extends React.Component {
 
     render() {
         const {containerSize, children, overflow} = this.props;
+
         return (
             <View style={{...styles.topOverflow, overflow}}>
                 <Gestures
                     ref={(ref) => {
                         this.zoomPanel = ref;
                         if (this.paneLayout && this.zoomPanel) {
-                            this.borderZoom(this.scale || 1, containerSize);
+                            this.borderZoom(this.scale || this.minZoom, containerSize);
                             this.zoomPanel.updateStyles();
                         }
                         return this.zoomPanel;
@@ -321,8 +336,8 @@ class ZoomHandler extends React.Component {
                         }
                     }}
                     scalable={{
-                        min: 1,
-                        max: 3,
+                        min: this.minZoom,
+                        max: this.maxZoom,
                     }}
                     onScaleEnd={(event, info) => {
                         if (this.zoomPanel) {

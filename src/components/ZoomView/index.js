@@ -12,8 +12,8 @@ class ZoomView extends React.Component {
     }
 
     render() {
-        const {style, children, overflow} = this.props;
-        let over = overflow===undefined?'hidden':overflow;
+        const {style, children, overflow, minZoom, maxZoom, zoomLevels} = this.props;
+        let over = overflow === undefined ? 'hidden' : overflow;
         return (
             <View
                 style={{height: undefined, overflow: over, ...style,}}
@@ -25,7 +25,11 @@ class ZoomView extends React.Component {
             >
                 <ZoomHandler
                     overflow={overflow}
-                    containerSize={this.state.containerSize}>
+                    containerSize={this.state.containerSize}
+                    minZoom={minZoom}
+                    maxZoom={maxZoom}
+                    zoomLevels={zoomLevels}
+                >
                     {children}
                 </ZoomHandler>
             </View>

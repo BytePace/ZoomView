@@ -336,7 +336,7 @@ class ZoomHandler extends React.Component {
                     }}
                 >
                     <View
-                        style={{...styles.scrolledContainer}}
+                        style={{minHeight: containerSize.height}}
                         onLayout={(event) => {
                             const {width, height} = event.nativeEvent.layout;
                             this.paneLayout = {width, height};

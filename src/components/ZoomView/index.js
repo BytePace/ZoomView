@@ -1,5 +1,5 @@
 import ZoomHandler from "../ZoomHandler";
-import {Text, View} from "react-native";
+import {View} from "react-native";
 import React from "react";
 
 
@@ -13,9 +13,10 @@ class ZoomView extends React.Component {
 
     render() {
         const {style, children, overflow} = this.props;
+        let over = overflow===undefined?'hidden':overflow;
         return (
             <View
-                style={{height: undefined, ...style}}
+                style={{height: undefined, overflow: over, ...style,}}
                 onLayout={(event) => {
                     const {width, height} = event.nativeEvent.layout;
                     const containerSize = {width, height};
@@ -25,7 +26,6 @@ class ZoomView extends React.Component {
                 <ZoomHandler
                     overflow={overflow}
                     containerSize={this.state.containerSize}>
-                    <Text>width = {this.state.containerSize.width} ; height = {this.state.containerSize.height}</Text>
                     {children}
                 </ZoomHandler>
             </View>

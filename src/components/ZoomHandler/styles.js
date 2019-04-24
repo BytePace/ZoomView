@@ -5,8 +5,6 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         zIndex: 1,
     },
-    scrolledContainer: {
-    },
 });
 
 export default styles;

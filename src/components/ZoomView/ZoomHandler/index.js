@@ -304,10 +304,10 @@ class ZoomHandler extends React.Component {
     }
 
     render() {
-        const {containerSize, children, overflow} = this.props;
+        const {containerSize, children} = this.props;
 
         return (
-            <View style={{...styles.topOverflow, overflow}}>
+            <View style={styles.topOverflow}>
                 <Gestures
                     ref={(ref) => {
                         this.zoomPanel = ref;

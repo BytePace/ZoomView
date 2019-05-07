@@ -1,4 +1,4 @@
-import ZoomHandler from "../ZoomHandler";
+import ZoomHandler from "./ZoomHandler";
 import {View} from "react-native";
 import React from "react";
 
@@ -12,11 +12,10 @@ class ZoomView extends React.Component {
     }
 
     render() {
-        const {style, children, overflow, minZoom, maxZoom, zoomLevels} = this.props;
-        let over = overflow === undefined ? 'hidden' : overflow;
+        const {style, children, minZoom, maxZoom, zoomLevels} = this.props;
         return (
             <View
-                style={{height: undefined, overflow: over, ...style,}}
+                style={{height: '100%', overflow: 'hidden', ...style,}}
                 onLayout={(event) => {
                     const {width, height} = event.nativeEvent.layout;
                     const containerSize = {width, height};
@@ -24,7 +23,6 @@ class ZoomView extends React.Component {
                 }}
             >
                 <ZoomHandler
-                    overflow={overflow}
                     containerSize={this.state.containerSize}
                     minZoom={minZoom}
                     maxZoom={maxZoom}

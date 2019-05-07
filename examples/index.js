@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View,} from 'react-native';
-import ZoomView from 'zoom_view';
+import ZoomView from 'react-native-border-zoom-view';
 
 class Sample extends React.Component {
     renderTwoRows() {

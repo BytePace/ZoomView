@@ -3,10 +3,11 @@ React native zoom view. Based on [react-native-easy-gestures](https://github.com
 - Supports swiping
 - Respects borders and doesn't allow to lose content out of focus
 - Supports long views, such as tables and reports
-- Pure js (_oh boy_)
 - Configurable double-tap zoom.
 
-## Instalation
+![](https://media.giphy.com/media/izyVloLRej2OrtmYXh/giphy.gif)
+
+## Installation
 ```
 $ npm i react-native-border-zoom-view
 ```

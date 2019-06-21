@@ -1,7 +1,7 @@
 {
   "name": "react-native-border-zoom-view",
   "description": "A react-native zoom view with double tap zoom support",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "index.js",
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com:ViktorKinko/ZoomView.git"
+    "url": "git+https://github.com:BytePace/ZoomView.git"
   },
   "keywords": [
     "react-native",
